@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="pt-BR" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Antonio Angelo · Desenvolvedor Web</title>
+    <meta name="description" content="Portfólio de Antonio Angelo, desenvolvedor web full stack em formação. React, TypeScript e Supabase, com olhar de designer e foco na experiência de quem usa." />
+    <meta name="author" content="Antonio Angelo" />
+    <meta name="theme-color" content="#050608" />
+    <link rel="canonical" href="https://antonio-angelo.vercel.app/" />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.json" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:title" content="Antonio Angelo · Desenvolvedor Web" />
+    <meta property="og:description" content="Construo interfaces e sistemas web rápidos e bem feitos. React, TypeScript e Supabase." />
+    <meta property="og:url" content="https://antonio-angelo.vercel.app/" />
+    <meta property="og:image" content="https://antonio-angelo.vercel.app/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Antonio Angelo · Desenvolvedor Web" />
+    <meta name="twitter:description" content="Construo interfaces e sistemas web rápidos e bem feitos." />
+    <meta name="twitter:image" content="https://antonio-angelo.vercel.app/og-image.png" />
+
+    <!-- Fontes auto-hospedadas (@fontsource, font-display: swap). Só o VLibras é externo: -->
+    <link rel="preconnect" href="https://vlibras.gov.br" crossorigin />
+
+    <script>
+      // Aplica o tema salvo antes da renderização (evita "piscar").
+      (function () {
+        try {
+          var t = localStorage.getItem("tema");
+          if (t === "light") {
+            document.documentElement.classList.remove("dark");
+            document.querySelector('meta[name="theme-color"]').setAttribute("content", "#ffffff");
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <!-- Plugin VLibras (acessibilidade em Libras) -->
+    <div vw class="enabled">
+      <div vw-access-button class="active"></div>
+      <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+      </div>
+    </div>
+    <script>
+      // Carrega o VLibras depois que a página fica ociosa, sem atrasar a abertura do site.
+      window.addEventListener("load", function () {
+        var iniciar = function () {
+          var s = document.createElement("script");
+          s.src = "https://vlibras.gov.br/app/vlibras-plugin.js";
+          s.onload = function () {
+            try { new window.VLibras.Widget("https://vlibras.gov.br/app"); } catch (e) {}
+          };
+          document.body.appendChild(s);
+        };
+        if ("requestIdleCallback" in window) requestIdleCallback(iniciar, { timeout: 4000 });
+        else setTimeout(iniciar, 2000);
+      });
+    </script>
+
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
