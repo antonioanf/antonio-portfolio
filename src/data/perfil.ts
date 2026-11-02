@@ -300,7 +300,7 @@ export const perfil = {
       { id: "email", rotulo: "E-mail", valor: "antonioangelo2703@gmail.com", href: "mailto:antonioangelo2703@gmail.com" },
       { id: "github", rotulo: "GitHub", valor: "github.com/antonioanf", href: GITHUB_URL },
       // Preencha valor e href para exibir:
-      { id: "linkedin", rotulo: "LinkedIn", valor: "", href: "" },
+      { id: "linkedin", rotulo: "LinkedIn", valor: "linkedin.com/in/antonioanf", href: "https://www.linkedin.com/in/antonioanf" },
       { id: "instagram", rotulo: "Instagram", valor: "", href: "" },
     ] satisfies Canal[],
   },
