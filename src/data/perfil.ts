@@ -62,18 +62,13 @@ const GITHUB_URL = "https://github.com/antoniofilho27032006anf";
 export const perfil = {
   nome: "Antonio Angelo",
   iniciais: "AA",
-  usuario: "antonio-angelo",
   cargo: "Desenvolvedor Web Full Stack em formação",
-  disponibilidade: "Disponível para projetos e estágio",
   headline: {
     inicio: "Construo interfaces e sistemas web",
     destaque: "rápidos e bem feitos.",
   },
   resumo:
     "Estudante de Análise e Desenvolvimento de Sistemas, com bagagem em design gráfico e atendimento. Uno código limpo, olhar de designer e foco total na experiência de quem usa.",
-  foto: "/assets/MinhaFoto.png",
-  /** Cidade exibida abaixo da foto. */
-  cidade: "Itaporanga · PB",
   /** Caminho do PDF em /public (ex.: "/curriculo.pdf"). Vazio = botão escondido. */
   curriculo: "",
 
@@ -313,7 +308,6 @@ export const perfil = {
   rodape: {
     frase: { inicio: "Código limpo.", destaque: "Interfaces que funcionam." },
     ano: "2026",
-    feitoCom: "Feito com React + TypeScript",
   },
 };
 

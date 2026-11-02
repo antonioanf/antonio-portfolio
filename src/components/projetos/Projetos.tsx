@@ -29,7 +29,7 @@ export default function Projetos() {
               <h3 className="font-display text-2xl font-semibold tracking-tight">Projetos acadêmicos</h3>
               <span className="font-mono text-xs text-muted">{String(academicos.length).padStart(2, "0")} projetos</span>
             </Reveal>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {academicos.map((p, i) => (
                 <Reveal key={p.id} delay={i * 0.06} className="h-full">
                   <ProjetoCard projeto={p} />

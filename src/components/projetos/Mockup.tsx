@@ -47,19 +47,22 @@ export function BrowserFrame({
   children,
   className = "",
   proporcao = "aspect-[16/10]",
+  compacto = false,
 }: {
   url?: string;
   proporcao?: string;
+  /** Barra menor, para miniaturas. */
+  compacto?: boolean;
   children: ReactNode;
   className?: string;
 }) {
   return (
-    <div className={`overflow-hidden rounded-xl border border-border bg-surface ${className}`}>
-      <div className="flex items-center gap-3 border-b border-border px-3.5 py-2.5">
-        <div className="flex gap-1.5">
-          <span className="size-2 rounded-full bg-border-strong" />
-          <span className="size-2 rounded-full bg-border-strong" />
-          <span className="size-2 rounded-full bg-border-strong" />
+    <div className={`overflow-hidden border border-border bg-surface ${compacto ? "rounded-lg" : "rounded-xl"} ${className}`}>
+      <div className={`flex items-center gap-3 border-b border-border ${compacto ? "px-2 py-1.5" : "px-3.5 py-2.5"}`}>
+        <div className={`flex ${compacto ? "gap-1" : "gap-1.5"}`}>
+          <span className={`rounded-full bg-border-strong ${compacto ? "size-1.5" : "size-2"}`} />
+          <span className={`rounded-full bg-border-strong ${compacto ? "size-1.5" : "size-2"}`} />
+          <span className={`rounded-full bg-border-strong ${compacto ? "size-1.5" : "size-2"}`} />
         </div>
         {url && (
           <span className="truncate rounded-md bg-surface-2 px-2.5 py-0.5 font-mono text-[10.5px] text-muted">{url}</span>

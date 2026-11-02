@@ -1,6 +1,6 @@
 import { Briefcase, Download, GraduationCap } from "lucide-react";
 import { perfil } from "../data/perfil";
-import { Botao, Container, Reveal, SectionHeader, trackGlow } from "./ui";
+import { Botao, Container, Reveal, SectionHeader } from "./ui";
 
 export default function Sobre() {
   return (
@@ -16,33 +16,7 @@ export default function Sobre() {
           }
         />
 
-        <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
-          <Reveal>
-            <figure
-              onMouseMove={trackGlow}
-              className="glow-card group mx-auto max-w-sm rounded-2xl border border-border bg-surface p-2.5 lg:mx-0"
-            >
-              <div className="overflow-hidden rounded-xl bg-surface-2">
-                <picture>
-                  <source srcSet="/assets/MinhaFoto.webp" type="image/webp" />
-                  <img
-                    src={perfil.foto}
-                    alt={`Foto de ${perfil.nome}`}
-                    width={400}
-                    height={400}
-                    loading="lazy"
-                    decoding="async"
-                    className="aspect-square w-full object-cover grayscale transition-all duration-700 group-hover:scale-[1.03] group-hover:grayscale-0"
-                  />
-                </picture>
-              </div>
-              <figcaption className="flex items-center justify-between px-2 pt-3 pb-1 font-mono text-[11px] text-muted">
-                <span>{perfil.usuario}.png</span>
-                <span>{perfil.cidade}</span>
-              </figcaption>
-            </figure>
-          </Reveal>
-
+        <div className="grid gap-12 lg:grid-cols-2 lg:gap-20">
           <div>
             <Reveal className="space-y-5 text-lg leading-relaxed text-muted">
               {perfil.sobre.map((p) => (
@@ -59,8 +33,10 @@ export default function Sobre() {
                 </Botao>
               </Reveal>
             )}
+          </div>
 
-            <Reveal className="mt-14">
+          <div>
+            <Reveal>
               <h3 className="mb-6 font-mono text-xs tracking-widest text-muted uppercase">Trajetória</h3>
               <ol className="relative border-l border-border">
                 {perfil.trajetoria.map((t, i) => {

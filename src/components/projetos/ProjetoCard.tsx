@@ -7,28 +7,28 @@ export default function ProjetoCard({ projeto }: { projeto: Projeto }) {
   const link = projeto.linkSite || projeto.linkCodigo;
   const conteudo = (
     <>
-      <BrowserFrame>
+      <BrowserFrame className="w-28 shrink-0 self-start sm:w-36 lg:w-44" compacto>
         <ImagemProjeto src={projeto.imagem} titulo={projeto.titulo} cor={projeto.cor} posicao="object-center" />
       </BrowserFrame>
-      <div className="flex flex-1 flex-col px-2 pt-5 pb-2">
-        <div className="flex items-start justify-between gap-3">
-          <h3 className="font-display text-lg font-semibold tracking-tight">
+      <div className="flex min-w-0 flex-1 flex-col py-0.5">
+        <div className="flex items-start justify-between gap-2">
+          <h3 className="font-display text-[15px] leading-snug font-semibold tracking-tight">
             {projeto.titulo}
             {link && <span className="sr-only"> (abre em nova aba)</span>}
           </h3>
           {link && (
             <ArrowUpRight
-              size={18}
+              size={16}
               aria-hidden
-              className="shrink-0 text-muted transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent-2"
+              className="mt-0.5 shrink-0 text-muted transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent-2"
             />
           )}
         </div>
-        <p className="mt-2 text-sm leading-relaxed text-muted">{projeto.descricao}</p>
-        <ul className="mt-auto flex flex-wrap gap-1.5 pt-5">
+        <p className="mt-1 line-clamp-2 text-[13px] leading-relaxed text-muted">{projeto.descricao}</p>
+        <ul className="mt-auto flex flex-wrap gap-1 pt-3">
           {projeto.tecnologias.map((t) => (
             <li key={t}>
-              <Chip>{t}</Chip>
+              <Chip compacto>{t}</Chip>
             </li>
           ))}
         </ul>
@@ -37,7 +37,7 @@ export default function ProjetoCard({ projeto }: { projeto: Projeto }) {
   );
 
   const classes =
-    "glow-card group flex h-full flex-col rounded-2xl border border-border bg-surface p-2.5 transition-colors duration-300 hover:border-border-strong";
+    "glow-card group flex h-full gap-3 rounded-xl border border-border bg-surface p-2 transition-colors sm:gap-4 sm:p-2.5 duration-300 hover:border-border-strong";
 
   return link ? (
     <a

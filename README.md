@@ -20,7 +20,7 @@ Não é preciso mexer nos componentes para atualizar o portfólio.
 
 | O que mudar | Onde, dentro de `perfil` |
 | --- | --- |
-| Nome, cargo, selo de disponibilidade | `nome`, `cargo`, `disponibilidade` |
+| Nome e cargo | `nome`, `cargo` |
 | Frase principal do topo | `headline.inicio` e `headline.destaque` (a parte em gradiente) |
 | Números do topo (5º período, 8+ projetos…) | `numeros` |
 | Objeto do editor de código | `codigo` |
@@ -66,8 +66,6 @@ As imagens ficam em [`public/assets/`](public/assets/) e são referenciadas como
 - Formato ideal das capturas de tela: **16:10** (ex.: 1280×800).
 - Se a imagem não existir, o site mostra um **mockup gerado automaticamente** com o título e a cor do projeto.
   Por isso `KlerCarvalho.png`, `CIDUP.png` e `Convites.png` aparecem como mockup até você adicionar as capturas reais.
-- Sua foto: `public/assets/MinhaFoto.png` + a versão otimizada `MinhaFoto.webp`.
-  Se trocar a foto, substitua os dois arquivos (ou apague o `.webp` e remova a linha `<source>` em `src/components/Sobre.tsx`).
 
 Outros arquivos em `public/`: `favicon.svg`, `favicon.ico`, `icons/` (ícones do app), `og-image.png`
 (imagem 1200×630 que aparece ao compartilhar o link), `manifest.json`, `robots.txt` e `sitemap.xml`.
@@ -92,7 +90,6 @@ src/
 ├── hooks/                      ← useTheme (tema claro/escuro), useTypewriter
 ├── components/
 │   ├── ui.tsx                  ← Container, Reveal, SectionHeader, GlowCard, Chip, Botao
-│   ├── Intro.tsx               ← abertura em estilo terminal (1x por sessão)
 │   ├── Navbar.tsx · Hero.tsx · Marquee.tsx
 │   ├── Sobre.tsx · Stack.tsx · Processo.tsx · Contato.tsx · Footer.tsx
 │   ├── Abaixo.tsx              ← agrupa as seções carregadas sob demanda

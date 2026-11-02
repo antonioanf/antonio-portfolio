@@ -46,16 +46,16 @@ const cores: Record<NonNullable<Token["c"]>, string> = {
   punc: "text-[var(--code-punc)]",
 };
 
-function Editor({ ativo }: { ativo: boolean }) {
+function Editor() {
   const reduzir = useReducedMotion();
   const tokens = useMemo(montarTokens, []);
   // Trabalha com code points para não quebrar emojis no meio
   const chars = useMemo(() => tokens.map((tk) => Array.from(tk.t)), [tokens]);
   const total = chars.reduce((s, c) => s + c.length, 0);
   const plano = useMemo(() => "x".repeat(total), [total]);
-  const { visivel, completo } = useTypewriter(plano, { velocidade: 13, atraso: 400, ativo: ativo && !reduzir });
+  const { visivel, completo } = useTypewriter(plano, { velocidade: 13, atraso: 400, ativo: !reduzir });
 
-  let restante = ativo ? visivel.length : 0;
+  let restante = visivel.length;
   const renderizados = tokens.map((tk, i) => {
     if (restante <= 0) return null;
     const parte = chars[i].slice(0, restante).join("");
@@ -121,13 +121,12 @@ function useDesktop() {
   return desktop;
 }
 
-export default function Hero({ pronto }: { pronto: boolean }) {
+export default function Hero() {
   const desktop = useDesktop();
   const item = {
     hidden: { opacity: 0, y: 16 },
     show: (i: number) => ({ opacity: 1, y: 0, transition: { duration: 0.7, ease, delay: 0.08 * i } }),
   };
-  const estado = pronto ? "show" : "hidden";
 
   return (
     <section id="topo" className="relative overflow-hidden pt-28 pb-16 md:pt-36 md:pb-24">
@@ -140,21 +139,7 @@ export default function Hero({ pronto }: { pronto: boolean }) {
       <Container>
         <div className="grid items-center gap-14 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
           <div>
-            <m.p
-              custom={0}
-              variants={item}
-              initial="hidden"
-              animate={estado}
-              className="inline-flex items-center gap-2.5 rounded-full border border-border bg-surface/70 px-3.5 py-1.5 text-xs text-muted "
-            >
-              <span className="relative flex size-2">
-                <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400 opacity-60" />
-                <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
-              </span>
-              {perfil.disponibilidade}
-            </m.p>
-
-            <m.h1 custom={1} variants={item} initial="hidden" animate={estado} className="mt-8">
+            <m.h1 custom={1} variants={item} initial="hidden" animate="show" >
               <span className="block font-display text-lg font-medium tracking-tight text-fg">{perfil.nome}</span>
               <span className="mt-1 block font-mono text-sm text-muted">// {perfil.cargo}</span>
             </m.h1>
@@ -169,13 +154,13 @@ export default function Hero({ pronto }: { pronto: boolean }) {
               custom={3}
               variants={item}
               initial="hidden"
-              animate={estado}
+              animate="show"
               className="mt-7 max-w-xl text-base leading-relaxed text-muted md:text-lg"
             >
               {perfil.resumo}
             </m.p>
 
-            <m.div custom={4} variants={item} initial="hidden" animate={estado} className="mt-9 flex flex-wrap gap-3">
+            <m.div custom={4} variants={item} initial="hidden" animate="show" className="mt-9 flex flex-wrap gap-3">
               <Botao href="#projetos">
                 Ver projetos
                 <ArrowDown size={16} className="transition-transform group-hover:translate-y-0.5" />
@@ -190,11 +175,11 @@ export default function Hero({ pronto }: { pronto: boolean }) {
           {desktop && (
           <m.div
             initial={{ opacity: 0, y: 24, rotateX: 8 }}
-            animate={pronto ? { opacity: 1, y: 0, rotateX: 0 } : undefined}
+            animate={{ opacity: 1, y: 0, rotateX: 0 }}
             transition={{ duration: 0.9, ease, delay: 0.3 }}
             style={{ transformPerspective: 1200 }}
           >
-            <Editor ativo={pronto} />
+            <Editor />
           </m.div>
           )}
         </div>
@@ -203,7 +188,7 @@ export default function Hero({ pronto }: { pronto: boolean }) {
           custom={6}
           variants={item}
           initial="hidden"
-          animate={estado}
+          animate="show"
           className="mt-20 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border md:mt-24 md:grid-cols-4"
         >
           {perfil.numeros.map((n) => (

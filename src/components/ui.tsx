@@ -77,9 +77,13 @@ export function GlowCard({ className = "", children, ...rest }: ComponentPropsWi
   );
 }
 
-export function Chip({ children }: { children: ReactNode }) {
+export function Chip({ children, compacto = false }: { children: ReactNode; compacto?: boolean }) {
   return (
-    <span className="inline-flex items-center rounded-md border border-border bg-surface-2 px-2.5 py-1 font-mono text-[11px] leading-none text-muted">
+    <span
+      className={`inline-flex items-center rounded-md border border-border bg-surface-2 font-mono leading-none text-muted ${
+        compacto ? "px-1.5 py-0.5 text-[10px]" : "px-2.5 py-1 text-[11px]"
+      }`}
+    >
       {children}
     </span>
   );

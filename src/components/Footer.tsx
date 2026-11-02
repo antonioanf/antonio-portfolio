@@ -56,10 +56,6 @@ export default function Footer() {
           <p>
             © {perfil.rodape.ano} {perfil.nome}
           </p>
-          <p className="flex items-center gap-2">
-            <span className="size-1.5 rounded-full bg-accent" aria-hidden />
-            {perfil.rodape.feitoCom}
-          </p>
         </div>
       </Container>
     </footer>
