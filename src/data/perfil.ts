@@ -64,11 +64,11 @@ export const perfil = {
   iniciais: "AA",
   cargo: "Desenvolvedor Web Full Stack em formação",
   headline: {
-    inicio: "Construo interfaces e sistemas web",
-    destaque: "rápidos e bem feitos.",
+    inicio: "Desenvolvimento de Sites e Sistemas",
+    destaque: "Funcionais, Modernos e Eficientes.",
   },
   resumo:
-    "Estudante de Análise e Desenvolvimento de Sistemas, com bagagem em design gráfico e atendimento. Uno código limpo, olhar de designer e foco total na experiência de quem usa.",
+    "Desenvolvo sites, sistemas e aplicações web modernos, responsivos e eficientes, criando soluções digitais intuitivas que atendem às necessidades reais de cada projeto — da ideia inicial à publicação.",
   /** Caminho do PDF em /public (ex.: "/curriculo.pdf"). Vazio = botão escondido. */
   curriculo: "",
 
