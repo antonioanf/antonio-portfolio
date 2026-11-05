@@ -1,8 +1,21 @@
+import { m } from "framer-motion";
 import { ArrowUpRight, Check } from "lucide-react";
+import { useId, useState } from "react";
 import type { ProjetoDestaque as TProjeto } from "../../data/perfil";
 import { GithubIcon } from "../icons";
 import { Chip, GlowCard, Reveal } from "../ui";
 import { BrowserFrame, ImagemProjeto } from "./Mockup";
+
+/** "Sistema Grupo Klér Carvalho" → "sistema-grupo-kler-carvalho" */
+function slug(texto: string) {
+  return texto
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
 
 function Status({ status }: { status: TProjeto["status"] }) {
   if (status === "andamento")
@@ -24,7 +37,9 @@ function Status({ status }: { status: TProjeto["status"] }) {
 
 export default function ProjetoDestaque({ projeto, indice }: { projeto: TProjeto; indice: number }) {
   const invertido = indice % 2 === 1;
-  const host = projeto.linkSite ? projeto.linkSite.replace(/^https?:\/\//, "").replace(/\/$/, "") : "localhost:5173";
+  const [aberto, setAberto] = useState(false);
+  const idDetalhes = useId();
+  const host = projeto.linkSite ? projeto.linkSite.replace(/^https?:\/\//, "").replace(/\/$/, "") : slug(projeto.titulo);
 
   return (
     <Reveal>
@@ -48,26 +63,49 @@ export default function ProjetoDestaque({ projeto, indice }: { projeto: TProjeto
             </div>
 
             <h3 className="mt-3 font-display text-2xl font-semibold tracking-tight md:text-3xl">{projeto.titulo}</h3>
-            <p className="mt-4 leading-relaxed text-muted">{projeto.descricao}</p>
+            <p className={`mt-4 leading-relaxed text-muted ${aberto ? "" : "line-clamp-3 lg:line-clamp-none"}`}>{projeto.descricao}</p>
 
-            {projeto.destaques && (
-              <ul className="mt-6 grid gap-2 sm:grid-cols-2">
-                {projeto.destaques.map((d) => (
-                  <li key={d} className="flex items-center gap-2 text-sm">
-                    <span aria-hidden className="size-1 rounded-full bg-accent" />
-                    {d}
+            <button
+              type="button"
+              onClick={() => setAberto((a) => !a)}
+              aria-expanded={aberto}
+              aria-controls={idDetalhes}
+              className="mt-3 font-mono text-sm text-accent-2 transition-colors hover:text-accent lg:hidden"
+            >
+              {aberto ? "Ver menos ↑" : "Veja mais ↓"}
+            </button>
+
+            {/* No mobile anima a altura; no lg+ as classes com "!" vencem o estilo inline e tudo fica sempre visível. */}
+            <m.div
+              id={idDetalhes}
+              initial={false}
+              animate={
+                aberto
+                  ? { height: "auto", opacity: 1, visibility: "visible" }
+                  : { height: 0, opacity: 0, transitionEnd: { visibility: "hidden" } }
+              }
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="overflow-hidden lg:visible! lg:h-auto! lg:overflow-visible lg:opacity-100!"
+            >
+              {projeto.destaques && (
+                <ul className="mt-6 grid gap-2 sm:grid-cols-2">
+                  {projeto.destaques.map((d) => (
+                    <li key={d} className="flex items-center gap-2 text-sm">
+                      <span aria-hidden className="size-1 rounded-full bg-accent" />
+                      {d}
+                    </li>
+                  ))}
+                </ul>
+              )}
+
+              <ul className="mt-6 flex flex-wrap gap-2" aria-label="Tecnologias">
+                {projeto.tecnologias.map((t) => (
+                  <li key={t}>
+                    <Chip>{t}</Chip>
                   </li>
                 ))}
               </ul>
-            )}
-
-            <ul className="mt-6 flex flex-wrap gap-2" aria-label="Tecnologias">
-              {projeto.tecnologias.map((t) => (
-                <li key={t}>
-                  <Chip>{t}</Chip>
-                </li>
-              ))}
-            </ul>
+            </m.div>
 
             {(projeto.linkSite || projeto.linkCodigo) && (
               <div className="mt-8 flex flex-wrap gap-3">
