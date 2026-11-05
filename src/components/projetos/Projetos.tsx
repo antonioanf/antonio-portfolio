@@ -14,7 +14,7 @@ export default function Projetos() {
           numero="03"
           rotulo="Projetos"
           titulo="Trabalhos selecionados."
-          descricao="Projetos profissionais, em equipe e acadêmicos: do estágio aos primeiros sistemas da faculdade."
+          descricao="Projetos profissionais, em equipe e acadêmicos: dos trabalhos para clientes aos primeiros sistemas da faculdade."
         />
 
         <div className="space-y-6 md:space-y-8">

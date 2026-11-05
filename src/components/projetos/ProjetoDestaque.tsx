@@ -78,7 +78,7 @@ export default function ProjetoDestaque({ projeto, indice }: { projeto: TProjeto
                     rel="noopener noreferrer"
                     className="group/btn inline-flex items-center gap-1.5 rounded-full bg-fg px-4 py-2 text-sm font-medium text-bg transition-colors hover:bg-accent hover:text-white"
                   >
-                    Ver site
+                    {projeto.rotuloLink ?? "Ver site"}
                     <ArrowUpRight size={15} className="transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
                   </a>
                 )}

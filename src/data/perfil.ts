@@ -12,7 +12,7 @@ export type CanalId = "whatsapp" | "email" | "github" | "linkedin" | "instagram"
 
 export interface ItemTrajetoria {
   titulo: string;
-  local: string;
+  local?: string;
   periodo: string;
   detalhe?: string;
   tipo: "trabalho" | "formacao";
@@ -36,6 +36,8 @@ export interface Projeto {
   /** Cor de destaque usada no mockup gerado (quando a imagem falha). */
   cor: string;
   linkSite?: string;
+  /** Texto do botão do site. Padrão: "Ver site". */
+  rotuloLink?: string;
   linkCodigo?: string;
   /** false = fica guardado aqui, mas não aparece no site. */
   exibir: boolean;
@@ -106,14 +108,13 @@ export const perfil = {
   ],
 
   sobre: [
-    "Estou no 5º período de Análise e Desenvolvimento de Sistemas na UNIFIP e atuo como estagiário de desenvolvimento web no Grupo Klér Carvalho, onde participo de todo o ciclo: interface, testes automatizados, integração contínua, documentação e publicação.",
+    "Estou no 5º período de Análise e Desenvolvimento de Sistemas na UNIFIP e atuo como estagiário de desenvolvimento web Full Stack, participando de todo o ciclo dos projetos: interface, testes automatizados, integração contínua, documentação e publicação.",
     "Antes da programação, trabalhei 3 anos com design gráfico e 4 anos com atendimento ao público. Essa bagagem me ajuda a criar interfaces intuitivas e a entender o que o usuário realmente precisa.",
   ],
 
   trajetoria: [
     {
-      titulo: "Estagiário de Desenvolvimento Web",
-      local: "Grupo Klér Carvalho",
+      titulo: "Estagiário em Desenvolvimento Web Full Stack",
       periodo: "2026",
       tipo: "trabalho",
     },
@@ -172,11 +173,11 @@ export const perfil = {
       id: "kler-carvalho",
       titulo: "Sistema Grupo Klér Carvalho",
       categoria: "Projeto profissional",
-      contexto: "Estágio",
+      contexto: "Freelance",
       ano: "2026",
       status: "concluido",
       descricao:
-        "Plataforma web do Grupo Klér Carvalho com site institucional e painel administrativo, desenvolvida durante o estágio. Participei do ciclo completo: interface, componentes, identidade visual, testes automatizados, integração contínua, documentação e publicação.",
+        "Plataforma web do Grupo Klér Carvalho com site institucional e painel administrativo, desenvolvida como projeto freelance. Participei do ciclo completo: interface, componentes, identidade visual, testes automatizados, integração contínua, documentação e publicação.",
       destaques: ["Interface responsiva", "Testes automatizados", "CI com GitHub Actions", "Deploy contínuo"],
       tecnologias: ["React", "TypeScript", "Vite", "React Router", "Lucide React"],
       imagem: "/assets/KlerCarvalho.png",
@@ -214,13 +215,24 @@ export const perfil = {
       imagem: "/assets/Convites.png",
       formato: "retrato",
       cor: "#c9a45c",
-      linkSite: "",
+      linkSite: "https://convite-magia.vercel.app/",
+      rotuloLink: "Veja você mesmo",
       linkCodigo: "",
       exibir: true,
     },
   ] satisfies ProjetoDestaque[],
 
   projetosAcademicos: [
+    {
+      id: "cidup-academico",
+      titulo: "CIDUP",
+      descricao: "Plataforma para registrar e acompanhar denúncias urbanas, aproximando cidadãos dos órgãos responsáveis.",
+      imagem: "/assets/CIDUP.png",
+      tecnologias: ["React", "TypeScript", "Supabase", "PostgreSQL"],
+      cor: "#0ea5e9",
+      linkCodigo: "https://github.com/otavio2019/cidup",
+      exibir: true,
+    },
     {
       id: "stoqnet",
       titulo: "StoqNET",

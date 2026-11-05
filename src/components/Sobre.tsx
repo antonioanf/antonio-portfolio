@@ -58,7 +58,7 @@ export default function Sobre() {
                           {t.detalhe && <span className="text-accent-2"> · {t.detalhe}</span>}
                         </span>
                       </div>
-                      <p className="mt-1 text-sm text-muted">{t.local}</p>
+                      {t.local && <p className="mt-1 text-sm text-muted">{t.local}</p>}
                     </li>
                   );
                 })}
