@@ -123,8 +123,8 @@ export const perfil = {
   ] satisfies Tech[],
 
   sobre: [
-    "Estou no 5º período de Análise e Desenvolvimento de Sistemas na UNIFIP e atuo como estagiário de desenvolvimento web Full Stack, participando de todo o ciclo dos projetos: interface, testes automatizados, integração contínua, documentação e publicação.",
-    "Antes da programação, trabalhei 3 anos com design gráfico e 4 anos com atendimento ao público. Essa bagagem me ajuda a criar interfaces intuitivas e a entender o que o usuário realmente precisa.",
+    "Estudante de Análise e Desenvolvimento de Sistemas na UNIFIP e estagiário de desenvolvimento web Full Stack. Participo de todo o ciclo dos projetos, da interface à publicação.",
+    "Antes do código, trabalhei com design gráfico e atendimento ao público. Essa bagagem me ajuda a criar interfaces intuitivas, pensadas para quem vai usar.",
   ],
 
   trajetoria: [

@@ -206,25 +206,7 @@ export default function Hero() {
           )}
         </div>
 
-        <m.dl
-          custom={6}
-          variants={item}
-          initial="hidden"
-          animate="show"
-          className="mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border md:mt-20 md:grid-cols-4"
-        >
-          {perfil.numeros.map((n) => (
-            <div key={n.rotulo} className="bg-bg px-5 py-6 md:px-7">
-              <dt className="sr-only">{n.rotulo}</dt>
-              <dd>
-                <span className="block font-display text-3xl font-semibold tracking-tight md:text-4xl">{n.valor}</span>
-                <span className="mt-1.5 block font-mono text-xs text-muted">{n.rotulo}</span>
-              </dd>
-            </div>
-          ))}
-        </m.dl>
-
-        <div className="mt-10 flex justify-center md:mt-12">
+        <div className="mt-12 flex justify-center md:mt-16">
           <a
             href="#sobre"
             aria-label="Rolar para a seção Sobre"
