@@ -1,38 +1,64 @@
+import type { CSSProperties } from "react";
 import { perfil } from "../data/perfil";
-import { techIcons } from "./techIcons";
+import { coresMarca, techIcons } from "./techIcons";
 import { Container, Reveal, SectionHeader } from "./ui";
+
+/** Marcações nas quinas do tile, estilo mira/terminal. */
+const quinas = [
+  "top-1.5 left-1.5 border-t border-l",
+  "top-1.5 right-1.5 border-t border-r",
+  "bottom-1.5 left-1.5 border-b border-l",
+  "bottom-1.5 right-1.5 border-b border-r",
+];
 
 export default function Stack() {
   return (
     <section id="stack" className="border-t border-border py-16 md:py-20">
       <Container>
-        <SectionHeader numero="02" rotulo="Stack" titulo="Minha stack." />
-        <div className="divide-y divide-border border-y border-border">
-          {perfil.stack.map((g, i) => (
-            <Reveal key={g.titulo} delay={i * 0.05} y={10}>
-              <div className="grid grid-cols-[1fr_auto] items-center gap-x-6 gap-y-4 py-5 md:grid-cols-[160px_1fr_auto] md:py-6">
-                <h3 className="font-mono text-xs tracking-widest text-muted uppercase">{g.titulo}</h3>
-                <span aria-hidden className="font-mono text-[11px] text-muted/60 md:order-last">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <ul className="col-span-2 grid grid-cols-3 gap-x-2 gap-y-4 min-[420px]:grid-cols-4 sm:grid-cols-5 md:col-span-1 md:flex md:flex-wrap md:gap-x-3">
-                  {g.itens.map((it) => {
-                    const Icone = techIcons[it.icone];
-                    return (
-                      <li key={it.nome} className="group flex flex-col items-center gap-2 md:w-[84px]">
-                        <span className="grid size-14 place-items-center rounded-xl border border-border bg-surface text-fg/80 transition-all duration-300 group-hover:border-accent group-hover:text-accent group-hover:shadow-[0_0_22px_var(--glow)] md:size-15">
-                          <Icone size={24} aria-hidden />
-                        </span>
-                        <span className="text-center font-mono text-[11px] leading-tight text-muted transition-colors group-hover:text-fg">
-                          {it.nome}
-                        </span>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            </Reveal>
-          ))}
+        <SectionHeader numero="02" rotulo="Stack" titulo="Criação" />
+
+        <div className="relative max-w-3xl">
+          <div aria-hidden className="bg-grid-tiles pointer-events-none absolute -inset-x-5 -inset-y-6 -z-10 md:-inset-10" />
+
+          <Reveal y={8}>
+            <p className="mb-4 font-mono text-xs text-muted">
+              <span className="text-accent-2">&gt;</span> stack --frontend
+              <span aria-hidden className="ml-1 inline-block h-3.5 w-[7px] translate-y-[2px] animate-blink bg-accent-2/70 motion-reduce:animate-none" />
+            </p>
+          </Reveal>
+
+          <ul className="flex flex-wrap justify-center gap-3 md:flex-nowrap md:justify-start">
+            {perfil.stack.map((it, i) => {
+              const Icone = techIcons[it.icone];
+              const cor = coresMarca[it.icone] ?? "var(--accent)";
+              return (
+                <li key={it.nome} className="w-[calc((100%-1.5rem)/3)] md:w-auto md:flex-1">
+                  <Reveal delay={0.06 * i} y={10}>
+                    <div
+                      style={{ "--marca": cor } as CSSProperties}
+                      className="group relative flex aspect-square flex-col items-center justify-center gap-3 rounded-lg border border-border bg-surface transition-all duration-300 hover:border-accent/60 hover:shadow-[0_0_24px_var(--glow)] md:aspect-[5/4]"
+                    >
+                      {quinas.map((q) => (
+                        <span
+                          key={q}
+                          aria-hidden
+                          className={`absolute size-2 border-border-strong transition-colors duration-300 group-hover:border-accent ${q}`}
+                        />
+                      ))}
+                      <Icone
+                        size={30}
+                        aria-hidden
+                        className="text-fg/75 transition-colors duration-300 group-hover:text-[var(--marca)] md:size-9"
+                      />
+                      <span className="px-1 text-center font-mono text-xs leading-tight text-muted transition-colors group-hover:text-fg">
+                        {it.nome}
+                      </span>
+                    </div>
+                  </Reveal>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       </Container>
     </section>

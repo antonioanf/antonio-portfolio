@@ -1,4 +1,4 @@
-import { m, useReducedMotion } from "framer-motion";
+import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { perfil } from "../data/perfil";
@@ -109,6 +109,46 @@ function Editor() {
   );
 }
 
+const especialidades = ["Web", "de software", "de sites"];
+const MAIOR = especialidades.reduce((a, b) => (b.length > a.length ? b : a));
+
+/** Palavra em destaque do subtítulo que troca em loop (sobe e some, a próxima entra de baixo). */
+function Especialidade() {
+  const reduzir = useReducedMotion();
+  const [i, setI] = useState(0);
+
+  useEffect(() => {
+    if (reduzir) return;
+    const id = window.setInterval(() => setI((n) => (n + 1) % especialidades.length), 2500);
+    return () => window.clearInterval(id);
+  }, [reduzir]);
+
+  const palavra = reduzir ? especialidades[0] : especialidades[i];
+
+  return (
+    // Grid de uma célula: a palavra fantasma (a maior) reserva a largura e as reais ficam por cima
+    <span className="-mr-[0.22em] inline-grid sm:-mr-[0.3em] overflow-hidden align-bottom font-bold text-accent">
+      <span aria-hidden className="invisible col-start-1 row-start-1">
+        {MAIOR}
+      </span>
+      <span aria-live="polite" className="relative col-start-1 row-start-1">
+        <AnimatePresence initial={false}>
+          <m.span
+            key={palavra}
+            className="top-0 left-0 block"
+            initial={{ y: "100%", opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: "-100%", opacity: 0, position: "absolute" }}
+            transition={{ duration: 0.4, ease }}
+          >
+            {palavra}
+          </m.span>
+        </AnimatePresence>
+      </span>
+    </span>
+  );
+}
+
 /** true quando a tela é larga o bastante para mostrar o editor (lg). */
 function useDesktop() {
   const [desktop, setDesktop] = useState(() => window.matchMedia("(min-width: 1024px)").matches);
@@ -142,17 +182,16 @@ export default function Hero() {
           <div>
             {/* Nome em destaque; o bloco tem a largura do nome para alinhar o cargo à direita */}
             <m.div custom={0} variants={item} initial="hidden" animate="show" className="mx-auto w-fit lg:mx-0">
-              <h1 className="font-display text-[clamp(4rem,25.5vw,8rem)] leading-[0.86] font-bold tracking-[-0.055em] text-fg lg:text-[clamp(6rem,10.2vw,9.5rem)]">
+              <h1 className="font-display text-[clamp(3.25rem,21vw,6.5rem)] leading-[0.86] font-bold tracking-[-0.055em] text-fg lg:text-[clamp(5rem,8.4vw,7.75rem)]">
                 <span className="block">Antonio</span>
                 <span className="block">
                   <span className="text-accent">A</span>ngelo
                 </span>
               </h1>
-              <p className="mt-4 flex items-center justify-end gap-3 text-right text-sm text-fg sm:text-base md:mt-5">
-                <span aria-hidden className="h-px w-10 bg-accent sm:w-16" />
-                <span className="whitespace-nowrap">
-                  <span className="font-normal tracking-[0.3em] uppercase">Desenvolvedor</span>{" "}
-                  <span className="-mr-[0.3em] font-bold tracking-[0.3em] text-accent uppercase">Web</span>
+              <p className="mt-4 flex items-center justify-end gap-3 text-xs text-fg sm:text-sm md:mt-5 md:text-base">
+                <span aria-hidden className="h-px w-8 shrink-0 bg-accent sm:w-14" />
+                <span className="text-left whitespace-nowrap tracking-[0.22em] uppercase sm:tracking-[0.3em]">
+                  <span className="font-normal">Desenvolvedor</span> <Especialidade />
                 </span>
               </p>
             </m.div>
@@ -164,7 +203,7 @@ export default function Hero() {
               animate="show"
               className="mx-auto mt-10 max-w-md text-center text-base text-balance text-muted md:text-lg lg:mx-0 lg:text-left"
             >
-              Sites e sistemas modernos, <span className="text-accent-2">do design ao deploy.</span>
+              Transformo ideias em experiências digitais, <span className="text-accent-2">do conceito à entrega.</span>
             </m.p>
 
             <m.div

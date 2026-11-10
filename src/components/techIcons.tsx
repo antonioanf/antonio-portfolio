@@ -5,6 +5,7 @@ import {
   FlaskConical,
   KeyRound,
   LayoutDashboard,
+  MonitorSmartphone,
   Palette,
   PenTool,
   Webhook,
@@ -19,6 +20,7 @@ import {
   SiGithubactions,
   SiGodotengine,
   SiHtml5,
+  SiNextdotjs,
   SiJavascript,
   SiPostgresql,
   SiReact,
@@ -61,4 +63,14 @@ export const techIcons: Record<TechIcone, Icone> = {
   design: Palette,
   identidade: PenTool,
   acessibilidade: Accessibility,
+  nextjs: SiNextdotjs,
+  responsivo: MonitorSmartphone,
+};
+
+/** Cor da marca usada no hover dos tiles da seção Criação. Sem cor = cor de destaque. */
+export const coresMarca: Partial<Record<TechIcone, string>> = {
+  react: "#61dafb",
+  nextjs: "var(--text)", // a marca é preta: segue o texto para aparecer nos dois temas
+  typescript: "#3178c6",
+  tailwind: "#06b6d4",
 };

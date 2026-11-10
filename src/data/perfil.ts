@@ -11,7 +11,7 @@ export type TechIcone =
   | "react" | "typescript" | "javascript" | "tailwind" | "vite" | "supabase" | "postgresql"
   | "git" | "github" | "githubactions" | "vercel" | "framer" | "html" | "css" | "godot" | "figma"
   | "reactrouter" | "sql" | "api" | "auth" | "testes" | "docs" | "uiux" | "design" | "identidade"
-  | "acessibilidade";
+  | "acessibilidade" | "nextjs" | "responsivo";
 
 export interface Tech {
   nome: string;
@@ -26,11 +26,6 @@ export interface ItemTrajetoria {
   periodo: string;
   detalhe?: string;
   tipo: "trabalho" | "formacao";
-}
-
-export interface GrupoStack {
-  titulo: string;
-  itens: Tech[];
 }
 
 export interface Projeto {
@@ -160,52 +155,14 @@ export const perfil = {
     },
   ] satisfies ItemTrajetoria[],
 
+  /** Seção 02 (Criação). A faixa que rola usa `marquee`, acima. */
   stack: [
-    {
-      titulo: "Front-end",
-      itens: [
-        { nome: "HTML5", icone: "html" },
-        { nome: "CSS3", icone: "css" },
-        { nome: "JavaScript", icone: "javascript" },
-        { nome: "TypeScript", icone: "typescript" },
-        { nome: "React", icone: "react" },
-        { nome: "React Router", icone: "reactrouter" },
-        { nome: "Tailwind CSS", icone: "tailwind" },
-        { nome: "Framer Motion", icone: "framer" },
-        { nome: "Vite", icone: "vite" },
-      ],
-    },
-    {
-      titulo: "Back-end & Dados",
-      itens: [
-        { nome: "Supabase", icone: "supabase" },
-        { nome: "PostgreSQL", icone: "postgresql" },
-        { nome: "SQL", icone: "sql" },
-        { nome: "APIs REST", icone: "api" },
-        { nome: "Autenticação", icone: "auth" },
-      ],
-    },
-    {
-      titulo: "Qualidade & Deploy",
-      itens: [
-        { nome: "Git", icone: "git" },
-        { nome: "GitHub", icone: "github" },
-        { nome: "GitHub Actions", icone: "githubactions" },
-        { nome: "Testes automatizados", icone: "testes" },
-        { nome: "Vercel", icone: "vercel" },
-        { nome: "Documentação técnica", icone: "docs" },
-      ],
-    },
-    {
-      titulo: "Design & Outros",
-      itens: [
-        { nome: "UI/UX", icone: "uiux" },
-        { nome: "Design gráfico", icone: "design" },
-        { nome: "Identidade visual", icone: "identidade" },
-        { nome: "Acessibilidade", icone: "acessibilidade" },
-      ],
-    },
-  ] satisfies GrupoStack[],
+    { nome: "React", icone: "react" },
+    { nome: "Next.js", icone: "nextjs" },
+    { nome: "TypeScript", icone: "typescript" },
+    { nome: "Tailwind CSS", icone: "tailwind" },
+    { nome: "UI responsiva", icone: "responsivo" },
+  ] satisfies Tech[],
 
   projetosDestaque: [
     {
