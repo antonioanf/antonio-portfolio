@@ -38,6 +38,11 @@ export interface Projeto {
   linkSite?: string;
   /** Texto do botão do site. Padrão: "Ver site". */
   rotuloLink?: string;
+  /**
+   * Vários links de demonstração. Se existir, substitui o botão único de linkSite.
+   * Com `imagem`, as capturas aparecem lado a lado (em pé) no mockup do card.
+   */
+  exemplos?: { rotulo: string; href: string; imagem?: string }[];
   linkCodigo?: string;
   /** false = fica guardado aqui, mas não aparece no site. */
   exibir: boolean;
@@ -210,13 +215,16 @@ export const perfil = {
       ano: "2026",
       status: "concluido",
       descricao:
-        "Convites digitais interativos e responsivos, com animações, efeitos visuais, temas personalizados e confirmação de presença pelo WhatsApp. Exemplo: convite temático inspirado no universo de Harry Potter.",
+        "Convites digitais interativos e responsivos, com animações, efeitos visuais, temas personalizados e confirmação de presença pelo WhatsApp. Exemplos: convite temático inspirado em Harry Potter e convite de aniversário infantil com tema de borboletas.",
       tecnologias: ["React", "TypeScript", "Tailwind CSS", "GSAP", "Framer Motion", "Canvas"],
       imagem: "/assets/Convites.png",
       formato: "retrato",
       cor: "#c9a45c",
       linkSite: "https://convite-magia.vercel.app/",
-      rotuloLink: "Veja você mesmo",
+      exemplos: [
+        { rotulo: "Tema Harry Potter", href: "https://convite-magia.vercel.app/", imagem: "/assets/Convites.png" },
+        { rotulo: "Tema Borboletas", href: "https://convite-borboleta.vercel.app/", imagem: "/assets/ConviteBorboleta.png" },
+      ],
       linkCodigo: "",
       exibir: true,
     },

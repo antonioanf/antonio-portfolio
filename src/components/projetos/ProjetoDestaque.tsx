@@ -35,20 +35,56 @@ function Status({ status }: { status: TProjeto["status"] }) {
   );
 }
 
+const classeBotaoPrincipal =
+  "group/btn inline-flex items-center gap-1.5 rounded-full bg-fg px-4 py-2 text-sm font-medium text-bg transition-colors hover:bg-accent hover:text-white";
+const classeSeta = "transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5";
+
 export default function ProjetoDestaque({ projeto, indice }: { projeto: TProjeto; indice: number }) {
+  const exemplos = projeto.exemplos ?? [];
   const invertido = indice % 2 === 1;
   const [aberto, setAberto] = useState(false);
   const idDetalhes = useId();
-  const host = projeto.linkSite ? projeto.linkSite.replace(/^https?:\/\//, "").replace(/\/$/, "") : slug(projeto.titulo);
+  // Com capturas dos exemplos, o mockup mostra as telas lado a lado em vez da imagem única.
+  const telasExemplos = exemplos.some((ex) => ex.imagem);
+  const host = telasExemplos
+    ? "convites"
+    : projeto.linkSite
+      ? projeto.linkSite.replace(/^https?:\/\//, "").replace(/\/$/, "")
+      : slug(projeto.titulo);
 
   return (
     <Reveal>
       <GlowCard className="group overflow-hidden p-3 md:p-4">
         <article className="grid items-center gap-6 lg:grid-cols-2 lg:gap-10">
           <div className={invertido ? "lg:order-2" : ""}>
-            <BrowserFrame url={host} proporcao="aspect-video">
-              <ImagemProjeto src={projeto.imagem} titulo={projeto.titulo} cor={projeto.cor} formato={projeto.formato} posicao="object-left-top" />
-            </BrowserFrame>
+            {telasExemplos ? (
+              // Um pouco mais alto no mobile para as duas telas não ficarem minúsculas.
+              <BrowserFrame url={host} proporcao="aspect-[4/3] sm:aspect-video">
+                <div
+                  className="absolute inset-0 flex items-stretch justify-center gap-[7%] bg-surface-2 px-[4%] pt-[4%] pb-[3%]"
+                  style={{ backgroundImage: `radial-gradient(70% 90% at 50% 50%, ${projeto.cor}38, transparent 70%)` }}
+                >
+                  {exemplos.map((ex) => (
+                    <figure key={ex.href} className="flex min-w-0 flex-col items-center gap-2">
+                      <a
+                        href={ex.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Abrir o convite ${ex.rotulo} em nova aba`}
+                        className="block aspect-[311/590] min-h-0 flex-1 overflow-hidden rounded-lg border border-border-strong shadow-2xl shadow-black/40 transition duration-300 ease-out hover:scale-[1.02] hover:ring-2 hover:ring-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
+                      >
+                        <ImagemProjeto src={ex.imagem ?? ""} titulo={`${projeto.titulo} (${ex.rotulo})`} cor={projeto.cor} posicao="object-top" />
+                      </a>
+                      <figcaption className="text-center font-mono text-xs leading-tight text-muted">{ex.rotulo}</figcaption>
+                    </figure>
+                  ))}
+                </div>
+              </BrowserFrame>
+            ) : (
+              <BrowserFrame url={host} proporcao="aspect-video">
+                <ImagemProjeto src={projeto.imagem} titulo={projeto.titulo} cor={projeto.cor} formato={projeto.formato} posicao="object-left-top" />
+              </BrowserFrame>
+            )}
           </div>
 
           <div className={`px-3 pb-4 lg:px-4 lg:py-6 ${invertido ? "lg:order-1" : ""}`}>
@@ -107,17 +143,25 @@ export default function ProjetoDestaque({ projeto, indice }: { projeto: TProjeto
               </ul>
             </m.div>
 
-            {(projeto.linkSite || projeto.linkCodigo) && (
-              <div className="mt-8 flex flex-wrap gap-3">
-                {projeto.linkSite && (
+            {exemplos.length > 0 && <p className="mt-8 font-mono text-xs text-muted">Veja você mesmo:</p>}
+
+            {(exemplos.length > 0 || projeto.linkSite || projeto.linkCodigo) && (
+              <div className={`${exemplos.length > 0 ? "mt-3" : "mt-8"} flex flex-wrap gap-3`}>
+                {exemplos.map((ex) => (
+                  <a key={ex.href} href={ex.href} target="_blank" rel="noopener noreferrer" className={classeBotaoPrincipal}>
+                    {ex.rotulo}
+                    <ArrowUpRight size={15} className={classeSeta} />
+                  </a>
+                ))}
+                {exemplos.length === 0 && projeto.linkSite && (
                   <a
                     href={projeto.linkSite}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group/btn inline-flex items-center gap-1.5 rounded-full bg-fg px-4 py-2 text-sm font-medium text-bg transition-colors hover:bg-accent hover:text-white"
+                    className={classeBotaoPrincipal}
                   >
                     {projeto.rotuloLink ?? "Ver site"}
-                    <ArrowUpRight size={15} className="transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+                    <ArrowUpRight size={15} className={classeSeta} />
                   </a>
                 )}
                 {projeto.linkCodigo && (
