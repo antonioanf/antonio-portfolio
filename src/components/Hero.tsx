@@ -129,15 +129,16 @@ export default function Hero() {
   };
 
   return (
-    <section id="topo" className="relative overflow-hidden pt-28 pb-10 md:pt-36 md:pb-14">
+    <section id="topo" className="relative flex min-h-svh flex-col overflow-hidden pt-24 pb-8 md:pt-32 md:pb-12">
       <div aria-hidden className="bg-diagonal pointer-events-none absolute inset-0 -z-10" />
       <div
         aria-hidden
         className="pointer-events-none absolute -top-40 left-1/2 -z-10 h-[520px] w-[900px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,var(--glow),transparent)]"
       />
 
-      <Container>
-        <div className="grid items-center gap-14 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
+      {/* Ocupa a altura da tela: conteúdo centralizado e seta no rodapé do hero */}
+      <Container className="flex flex-1 flex-col">
+        <div className="my-auto grid items-center gap-14 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
           <div>
             {/* Nome em destaque; o bloco tem a largura do nome para alinhar o cargo à direita */}
             <m.div custom={0} variants={item} initial="hidden" animate="show" className="mx-auto w-fit lg:mx-0">
@@ -161,19 +162,9 @@ export default function Hero() {
               variants={item}
               initial="hidden"
               animate="show"
-              className="mx-auto mt-12 max-w-xl text-center font-display text-2xl leading-tight font-semibold tracking-tight text-balance sm:text-3xl lg:mx-0 lg:mt-14 lg:text-left"
+              className="mx-auto mt-10 max-w-md text-center text-base text-balance text-muted md:text-lg lg:mx-0 lg:text-left"
             >
-              {perfil.headline.inicio} <span className="text-gradient">{perfil.headline.destaque}</span>
-            </m.p>
-
-            <m.p
-              custom={3}
-              variants={item}
-              initial="hidden"
-              animate="show"
-              className="mx-auto mt-4 max-w-xl text-center text-[15px] leading-relaxed text-muted md:text-base lg:mx-0 lg:text-left"
-            >
-              {perfil.resumo}
+              Sites e sistemas modernos, <span className="text-accent-2">do design ao deploy.</span>
             </m.p>
 
             <m.div
@@ -206,7 +197,7 @@ export default function Hero() {
           )}
         </div>
 
-        <div className="mt-12 flex justify-center md:mt-16">
+        <div className="mt-10 flex justify-center md:mt-12">
           <a
             href="#sobre"
             aria-label="Rolar para a seção Sobre"
