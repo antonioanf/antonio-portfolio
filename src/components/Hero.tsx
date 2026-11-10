@@ -129,8 +129,8 @@ export default function Hero() {
   };
 
   return (
-    <section id="topo" className="relative overflow-hidden pt-28 pb-16 md:pt-36 md:pb-24">
-      <div aria-hidden className="bg-grid pointer-events-none absolute inset-0 -z-10" />
+    <section id="topo" className="relative overflow-hidden pt-28 pb-10 md:pt-36 md:pb-14">
+      <div aria-hidden className="bg-diagonal pointer-events-none absolute inset-0 -z-10" />
       <div
         aria-hidden
         className="pointer-events-none absolute -top-40 left-1/2 -z-10 h-[520px] w-[900px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,var(--glow),transparent)]"
@@ -139,28 +139,50 @@ export default function Hero() {
       <Container>
         <div className="grid items-center gap-14 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
           <div>
-            <m.h1 custom={1} variants={item} initial="hidden" animate="show" >
-              <span className="block font-display text-lg font-medium tracking-tight text-fg">{perfil.nome}</span>
-              <span className="mt-1 block font-mono text-sm text-muted">// {perfil.cargo}</span>
-            </m.h1>
+            {/* Nome em destaque; o bloco tem a largura do nome para alinhar o cargo à direita */}
+            <m.div custom={0} variants={item} initial="hidden" animate="show" className="mx-auto w-fit lg:mx-0">
+              <h1 className="font-display text-[clamp(4rem,25.5vw,8rem)] leading-[0.86] font-bold tracking-[-0.055em] text-fg lg:text-[clamp(6rem,10.2vw,9.5rem)]">
+                <span className="block">Antonio</span>
+                <span className="block">
+                  <span className="text-accent">A</span>ngelo
+                </span>
+              </h1>
+              <p className="mt-4 flex items-center justify-end gap-3 text-right text-sm text-fg sm:text-base md:mt-5">
+                <span aria-hidden className="h-px w-10 bg-accent sm:w-16" />
+                <span className="whitespace-nowrap">
+                  <span className="font-normal tracking-[0.3em] uppercase">Desenvolvedor</span>{" "}
+                  <span className="-mr-[0.3em] font-bold tracking-[0.3em] text-accent uppercase">Web</span>
+                </span>
+              </p>
+            </m.div>
 
-            <p
-              className="mt-6 font-display text-[2.6rem] leading-[1.02] font-semibold tracking-[-0.035em] text-balance sm:text-6xl lg:text-[3.6rem] xl:text-[4rem]"
+            <m.p
+              custom={2}
+              variants={item}
+              initial="hidden"
+              animate="show"
+              className="mx-auto mt-12 max-w-xl text-center font-display text-2xl leading-tight font-semibold tracking-tight text-balance sm:text-3xl lg:mx-0 lg:mt-14 lg:text-left"
             >
               {perfil.headline.inicio} <span className="text-gradient">{perfil.headline.destaque}</span>
-            </p>
+            </m.p>
 
             <m.p
               custom={3}
               variants={item}
               initial="hidden"
               animate="show"
-              className="mt-7 max-w-xl text-base leading-relaxed text-muted md:text-lg"
+              className="mx-auto mt-4 max-w-xl text-center text-[15px] leading-relaxed text-muted md:text-base lg:mx-0 lg:text-left"
             >
               {perfil.resumo}
             </m.p>
 
-            <m.div custom={4} variants={item} initial="hidden" animate="show" className="mt-9 flex flex-wrap gap-3">
+            <m.div
+              custom={4}
+              variants={item}
+              initial="hidden"
+              animate="show"
+              className="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start"
+            >
               <Botao href="#projetos">
                 Ver projetos
                 <ArrowDown size={16} className="transition-transform group-hover:translate-y-0.5" />
@@ -173,14 +195,14 @@ export default function Hero() {
           </div>
 
           {desktop && (
-          <m.div
-            initial={{ opacity: 0, y: 24, rotateX: 8 }}
-            animate={{ opacity: 1, y: 0, rotateX: 0 }}
-            transition={{ duration: 0.9, ease, delay: 0.3 }}
-            style={{ transformPerspective: 1200 }}
-          >
-            <Editor />
-          </m.div>
+            <m.div
+              initial={{ opacity: 0, y: 24, rotateX: 8 }}
+              animate={{ opacity: 1, y: 0, rotateX: 0 }}
+              transition={{ duration: 0.9, ease, delay: 0.3 }}
+              style={{ transformPerspective: 1200 }}
+            >
+              <Editor />
+            </m.div>
           )}
         </div>
 
@@ -189,7 +211,7 @@ export default function Hero() {
           variants={item}
           initial="hidden"
           animate="show"
-          className="mt-20 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border md:mt-24 md:grid-cols-4"
+          className="mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border md:mt-20 md:grid-cols-4"
         >
           {perfil.numeros.map((n) => (
             <div key={n.rotulo} className="bg-bg px-5 py-6 md:px-7">
@@ -201,6 +223,16 @@ export default function Hero() {
             </div>
           ))}
         </m.dl>
+
+        <div className="mt-10 flex justify-center md:mt-12">
+          <a
+            href="#sobre"
+            aria-label="Rolar para a seção Sobre"
+            className="grid size-11 place-items-center rounded-full border border-border-strong text-muted transition-colors hover:border-accent hover:text-accent"
+          >
+            <ArrowDown size={18} aria-hidden className="animate-bounce-soft motion-reduce:animate-none" />
+          </a>
+        </div>
       </Container>
     </section>
   );

@@ -6,7 +6,17 @@
  * ============================================================
  */
 
-export type IconeStack = "frontend" | "backend" | "deploy" | "design";
+/** Chaves do mapa de ícones em src/components/techIcons.tsx. */
+export type TechIcone =
+  | "react" | "typescript" | "javascript" | "tailwind" | "vite" | "supabase" | "postgresql"
+  | "git" | "github" | "githubactions" | "vercel" | "framer" | "html" | "css" | "godot" | "figma"
+  | "reactrouter" | "sql" | "api" | "auth" | "testes" | "docs" | "uiux" | "design" | "identidade"
+  | "acessibilidade";
+
+export interface Tech {
+  nome: string;
+  icone: TechIcone;
+}
 export type StatusProjeto = "concluido" | "andamento";
 export type CanalId = "whatsapp" | "email" | "github" | "linkedin" | "instagram";
 
@@ -20,8 +30,7 @@ export interface ItemTrajetoria {
 
 export interface GrupoStack {
   titulo: string;
-  icone: IconeStack;
-  itens: string[];
+  itens: Tech[];
 }
 
 export interface Projeto {
@@ -95,22 +104,23 @@ export const perfil = {
   },
 
   marquee: [
-    "React",
-    "TypeScript",
-    "JavaScript",
-    "Tailwind CSS",
-    "Vite",
-    "Supabase",
-    "PostgreSQL",
-    "Git",
-    "GitHub Actions",
-    "Vercel",
-    "Framer Motion",
-    "HTML5",
-    "CSS3",
-    "Godot",
-    "UI/UX",
-  ],
+    { nome: "React", icone: "react" },
+    { nome: "TypeScript", icone: "typescript" },
+    { nome: "JavaScript", icone: "javascript" },
+    { nome: "Tailwind CSS", icone: "tailwind" },
+    { nome: "Vite", icone: "vite" },
+    { nome: "Supabase", icone: "supabase" },
+    { nome: "PostgreSQL", icone: "postgresql" },
+    { nome: "Git", icone: "git" },
+    { nome: "GitHub", icone: "github" },
+    { nome: "GitHub Actions", icone: "githubactions" },
+    { nome: "Vercel", icone: "vercel" },
+    { nome: "Framer Motion", icone: "framer" },
+    { nome: "HTML5", icone: "html" },
+    { nome: "CSS3", icone: "css" },
+    { nome: "Godot", icone: "godot" },
+    { nome: "Figma", icone: "figma" },
+  ] satisfies Tech[],
 
   sobre: [
     "Estou no 5º período de Análise e Desenvolvimento de Sistemas na UNIFIP e atuo como estagiário de desenvolvimento web Full Stack, participando de todo o ciclo dos projetos: interface, testes automatizados, integração contínua, documentação e publicação.",
@@ -153,23 +163,47 @@ export const perfil = {
   stack: [
     {
       titulo: "Front-end",
-      icone: "frontend",
-      itens: ["HTML5", "CSS3", "JavaScript", "TypeScript", "React", "React Router", "Tailwind CSS", "Framer Motion", "Vite"],
+      itens: [
+        { nome: "HTML5", icone: "html" },
+        { nome: "CSS3", icone: "css" },
+        { nome: "JavaScript", icone: "javascript" },
+        { nome: "TypeScript", icone: "typescript" },
+        { nome: "React", icone: "react" },
+        { nome: "React Router", icone: "reactrouter" },
+        { nome: "Tailwind CSS", icone: "tailwind" },
+        { nome: "Framer Motion", icone: "framer" },
+        { nome: "Vite", icone: "vite" },
+      ],
     },
     {
       titulo: "Back-end & Dados",
-      icone: "backend",
-      itens: ["Supabase", "PostgreSQL", "SQL", "APIs REST", "Autenticação"],
+      itens: [
+        { nome: "Supabase", icone: "supabase" },
+        { nome: "PostgreSQL", icone: "postgresql" },
+        { nome: "SQL", icone: "sql" },
+        { nome: "APIs REST", icone: "api" },
+        { nome: "Autenticação", icone: "auth" },
+      ],
     },
     {
       titulo: "Qualidade & Deploy",
-      icone: "deploy",
-      itens: ["Git", "GitHub", "GitHub Actions (CI)", "Testes automatizados", "Vercel", "Documentação técnica"],
+      itens: [
+        { nome: "Git", icone: "git" },
+        { nome: "GitHub", icone: "github" },
+        { nome: "GitHub Actions", icone: "githubactions" },
+        { nome: "Testes automatizados", icone: "testes" },
+        { nome: "Vercel", icone: "vercel" },
+        { nome: "Documentação técnica", icone: "docs" },
+      ],
     },
     {
       titulo: "Design & Outros",
-      icone: "design",
-      itens: ["UI/UX", "Design gráfico", "Identidade visual", "Acessibilidade"],
+      itens: [
+        { nome: "UI/UX", icone: "uiux" },
+        { nome: "Design gráfico", icone: "design" },
+        { nome: "Identidade visual", icone: "identidade" },
+        { nome: "Acessibilidade", icone: "acessibilidade" },
+      ],
     },
   ] satisfies GrupoStack[],
 
