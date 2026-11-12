@@ -206,15 +206,16 @@ export const perfil = {
       ano: "2026",
       status: "concluido",
       descricao:
-        "Convites digitais interativos e responsivos, com animações, efeitos visuais, temas personalizados e confirmação de presença pelo WhatsApp. Exemplos: convite temático inspirado em Harry Potter e convite de aniversário infantil com tema de borboletas.",
+        "Convites digitais interativos e responsivos, com animações, efeitos visuais, temas personalizados e confirmação de presença pelo WhatsApp. Exemplos: convites temáticos de borboletas, Harry Potter e Marvel.",
       tecnologias: ["React", "TypeScript", "Tailwind CSS", "GSAP", "Framer Motion", "Canvas"],
       imagem: "/assets/Convites.png",
       formato: "retrato",
       cor: "#c9a45c",
       linkSite: "https://convite-magia.vercel.app/",
       exemplos: [
-        { rotulo: "Tema Harry Potter", href: "https://convite-magia.vercel.app/", imagem: "/assets/Convites.png" },
         { rotulo: "Tema Borboletas", href: "https://convite-borboleta.vercel.app/", imagem: "/assets/ConviteBorboleta.png" },
+        { rotulo: "Tema Harry Potter", href: "https://convite-magia.vercel.app/", imagem: "/assets/Convites.png" },
+        { rotulo: "Tema Marvel", href: "https://convite-marvel.vercel.app/", imagem: "/assets/ConviteMarvel.png" },
       ],
       linkCodigo: "",
       exibir: true,

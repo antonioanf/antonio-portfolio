@@ -1,6 +1,6 @@
 import { m } from "framer-motion";
 import { ArrowUpRight, Check } from "lucide-react";
-import { useId, useState } from "react";
+import { useId, useRef, useState } from "react";
 import type { ProjetoDestaque as TProjeto } from "../../data/perfil";
 import { GithubIcon } from "../icons";
 import { Chip, GlowCard, Reveal } from "../ui";
@@ -39,6 +39,96 @@ const classeBotaoPrincipal =
   "group/btn inline-flex items-center gap-1.5 rounded-full bg-fg px-4 py-2 text-sm font-medium text-bg transition-colors hover:bg-accent hover:text-white";
 const classeSeta = "transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5";
 
+type Exemplo = NonNullable<TProjeto["exemplos"]>[number];
+
+/** Uma tela de celular em pé, com link para o convite e legenda embaixo. */
+function TelaExemplo({ ex, projeto, className = "" }: { ex: Exemplo; projeto: TProjeto; className?: string }) {
+  return (
+    <figure className={`flex min-w-0 flex-col items-center gap-2 ${className}`}>
+      <a
+        href={ex.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`Abrir o convite ${ex.rotulo} em nova aba`}
+        className="block aspect-[311/590] w-full overflow-hidden rounded-lg border border-border-strong shadow-2xl shadow-black/40 transition duration-300 ease-out hover:scale-[1.02] hover:ring-2 hover:ring-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
+      >
+        <ImagemProjeto src={ex.imagem ?? ""} titulo={`${projeto.titulo} (${ex.rotulo})`} cor={projeto.cor} posicao="object-top" />
+      </a>
+      <figcaption className="text-center font-mono text-xs leading-tight text-muted">{ex.rotulo}</figcaption>
+    </figure>
+  );
+}
+
+/**
+ * Capturas dos exemplos dentro do BrowserFrame.
+ * sm+: todas lado a lado, do mesmo tamanho. Mobile: carrossel com scroll-snap
+ * mostrando uma tela e meia, com bolinhas indicadoras.
+ */
+function TelasExemplos({ projeto, host }: { projeto: TProjeto; host: string }) {
+  const exemplos = projeto.exemplos ?? [];
+  const trilho = useRef<HTMLDivElement>(null);
+  const [ativo, setAtivo] = useState(0);
+  const fundo = { backgroundImage: `radial-gradient(70% 90% at 50% 50%, ${projeto.cor}38, transparent 70%)` };
+
+  function aoRolar() {
+    const el = trilho.current;
+    if (!el) return;
+    // No fim do trilho a última tela não chega no início, então conta como ativa.
+    if (el.scrollLeft >= el.scrollWidth - el.clientWidth - 4) return setAtivo(exemplos.length - 1);
+    const itens = Array.from(el.children) as HTMLElement[];
+    const inicio = el.scrollLeft + itens[0].offsetLeft;
+    let maisPerto = 0;
+    itens.forEach((item, i) => {
+      if (Math.abs(item.offsetLeft - inicio) < Math.abs(itens[maisPerto].offsetLeft - inicio)) maisPerto = i;
+    });
+    setAtivo(maisPerto);
+  }
+
+  function irPara(i: number) {
+    const el = trilho.current;
+    const item = el?.children[i] as HTMLElement | undefined;
+    if (!el || !item) return;
+    const primeiro = el.children[0] as HTMLElement;
+    el.scrollTo({ left: item.offsetLeft - primeiro.offsetLeft, behavior: "smooth" });
+  }
+
+  return (
+    <BrowserFrame url={host} proporcao="sm:aspect-video">
+      {/* Mobile: carrossel */}
+      <div className="bg-surface-2 py-5 sm:hidden" style={fundo}>
+        <div
+          ref={trilho}
+          onScroll={aoRolar}
+          className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-6 pl-6 after:block after:w-2 after:shrink-0 after:content-[''] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
+          {exemplos.map((ex) => (
+            <TelaExemplo key={ex.href} ex={ex} projeto={projeto} className="w-[64%] shrink-0 snap-start" />
+          ))}
+        </div>
+        <div className="mt-4 flex justify-center gap-2">
+          {exemplos.map((ex, i) => (
+            <button
+              key={ex.href}
+              type="button"
+              onClick={() => irPara(i)}
+              aria-label={`Mostrar ${ex.rotulo}`}
+              aria-current={i === ativo}
+              className={`h-2 rounded-full transition-all ${i === ativo ? "w-5 bg-accent" : "w-2 bg-border-strong hover:bg-muted"}`}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* sm+: lado a lado */}
+      <div className="absolute inset-0 hidden items-stretch justify-center gap-[5%] bg-surface-2 px-[4%] pt-[4%] pb-[3%] sm:flex" style={fundo}>
+        {exemplos.map((ex) => (
+          <TelaExemplo key={ex.href} ex={ex} projeto={projeto} className="h-full [&>a]:min-h-0 [&>a]:w-auto [&>a]:flex-1" />
+        ))}
+      </div>
+    </BrowserFrame>
+  );
+}
+
 export default function ProjetoDestaque({ projeto, indice }: { projeto: TProjeto; indice: number }) {
   const exemplos = projeto.exemplos ?? [];
   const invertido = indice % 2 === 1;
@@ -58,28 +148,7 @@ export default function ProjetoDestaque({ projeto, indice }: { projeto: TProjeto
         <article className="grid items-center gap-6 lg:grid-cols-2 lg:gap-10">
           <div className={invertido ? "lg:order-2" : ""}>
             {telasExemplos ? (
-              // Um pouco mais alto no mobile para as duas telas não ficarem minúsculas.
-              <BrowserFrame url={host} proporcao="aspect-[4/3] sm:aspect-video">
-                <div
-                  className="absolute inset-0 flex items-stretch justify-center gap-[7%] bg-surface-2 px-[4%] pt-[4%] pb-[3%]"
-                  style={{ backgroundImage: `radial-gradient(70% 90% at 50% 50%, ${projeto.cor}38, transparent 70%)` }}
-                >
-                  {exemplos.map((ex) => (
-                    <figure key={ex.href} className="flex min-w-0 flex-col items-center gap-2">
-                      <a
-                        href={ex.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`Abrir o convite ${ex.rotulo} em nova aba`}
-                        className="block aspect-[311/590] min-h-0 flex-1 overflow-hidden rounded-lg border border-border-strong shadow-2xl shadow-black/40 transition duration-300 ease-out hover:scale-[1.02] hover:ring-2 hover:ring-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
-                      >
-                        <ImagemProjeto src={ex.imagem ?? ""} titulo={`${projeto.titulo} (${ex.rotulo})`} cor={projeto.cor} posicao="object-top" />
-                      </a>
-                      <figcaption className="text-center font-mono text-xs leading-tight text-muted">{ex.rotulo}</figcaption>
-                    </figure>
-                  ))}
-                </div>
-              </BrowserFrame>
+              <TelasExemplos projeto={projeto} host={host} />
             ) : (
               <BrowserFrame url={host} proporcao="aspect-video">
                 <ImagemProjeto src={projeto.imagem} titulo={projeto.titulo} cor={projeto.cor} formato={projeto.formato} posicao="object-left-top" />
